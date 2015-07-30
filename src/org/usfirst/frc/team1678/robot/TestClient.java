@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TestClient implements Runnable{
 	public double []data;
 	Thread t;
-
+	public double[] getData(){return data;}
 	@Override
 	public void run() {
 		while(true)

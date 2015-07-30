@@ -12,7 +12,7 @@ public class YElevator {
 	Encoder encoder;
 	float encoderPosUp=0, encoderPosDown=0;
 	float encoderPosCenter=0;
-	int clicksPerFoot=950;
+	int clicksPerFoot=-950;
 	int target=0;
 	public YElevator()
 	{
@@ -40,14 +40,24 @@ public class YElevator {
 		float val=loop.CalibrateLoop(encoder.get()-encoderPosCenter-target);
 		motor.set(val);
 		if(!loop.IsTerminated());
-		else ;//motor.set(0);
+		else motor.set(0);
 		SmartDashboard.putNumber("elevator height", encoder.get()-encoderPosCenter);
 	}
 	void setTargetHeight(float feet)
 	{
-		target=(int) (-950*feet);
+		target=(int) (clicksPerFoot*feet);
 		if(target>encoder.get()-encoderPosCenter) loop=down;
 		else loop=up;
+		loop=new PIDLoop(-.0006f, -.000023f, 0, .3f);
 		loop.StartLoop();
+	}
+	void moveToApple(double []location)
+	{
+		SmartDashboard.putNumber("error", clicksPerFoot*location[1]);
+		float val=loop.CalibrateLoop((float) (clicksPerFoot*location[1]));
+		motor.set(val);
+		if(!loop.IsTerminated());
+		else motor.set(0);
+		SmartDashboard.putNumber("elevator height", encoder.get()-encoderPosCenter);
 	}
 }

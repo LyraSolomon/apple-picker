@@ -22,7 +22,7 @@ public class Robot extends IterativeRobot {
     	y.setTargetHeight(1);
     }
     public void teleopPeriodic() {
-//    	y.periodic();
+    	y.moveToApple(client.data);
     	
 		if(client.data[2]==0) SmartDashboard.putString("apple status", "No apple in view.");
 		if(client.data[2]==-1) SmartDashboard.putString("apple status", "Error occured.");
