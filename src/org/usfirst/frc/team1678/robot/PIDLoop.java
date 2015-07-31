@@ -14,23 +14,42 @@ public class PIDLoop {
 	protected float kd;
 	protected float kp;
 
-	protected float outputCap;
+	protected float kOutputCap;
+	protected float kTolerance;
 	protected float oldTermErr;
 	protected float difference[]=new float[maxHistorySize];
 	protected int historySize;
 	
-	public PIDLoop(float p, float i, float d, float cap)
+	/** Create loop with an output cap
+	 * 
+	 * @param p Proportional coefficient
+	 * @param i Integral coefficient
+	 * @param d Derivative coefficient
+	 * @param tolerance Allowed error
+	 * @param cap Maximun value
+	 */
+	public PIDLoop(float p, float i, float d, float tolerance, float cap)
 	{
 		kp=p; ki=i; kd=d;
 		PIDTimer=new Timer();
-		outputCap=Math.abs(cap);
+		kOutputCap=Math.abs(cap);
+		kTolerance=tolerance;
 	}
-	public PIDLoop(float p, float i, float d)
+	/** Create loop without an output cap
+	 * 
+	 * @param p Proportional coefficient
+	 * @param i Integral coefficient
+	 * @param d Derivative coefficient
+	 * @param tolerance Allowed error
+	 */
+	public PIDLoop(float p, float i, float d, float tolerance)
 	{
 		kp=p; ki=i; kd=d;
 		PIDTimer=new Timer();
-		outputCap=100000;
+		kOutputCap=100000;
+		kTolerance=tolerance;
 	}
+	/** Starts/resets PID loop */
 	public void StartLoop() {
 		PIDTimer.reset();
 		PIDTimer.start();
@@ -38,22 +57,12 @@ public class PIDLoop {
 		integral = 0;
 		lastErr = 0;
 	}
+	/** Run loop
+	 * 
+	 * @param err Distance from target value
+	 * @return Motor output
+	 */
 	float CalibrateLoop(float err) {
-		// Find the difference between where you want to end and where you are
-		// err = fabs(target - input);
-
-		float dt = (float) PIDTimer.get();
-		PIDTimer.reset();
-		integral += err * dt;
-		float der = (err - lastErr) / dt;
-		// Reset the error
-		lastErr = err;
-
-		float output = kp * err + ki * integral + kd * der;
-		if(Math.abs(output) > outputCap) {
-			output = output>0 ? outputCap : -outputCap;
-		}
-
 		// difference calculation here and add to termination array
 		if(historySize < maxHistorySize) {
 			difference[historySize] = err;
@@ -65,10 +74,30 @@ public class PIDLoop {
 			}
 			difference[maxHistorySize-1] = err;
 		}
+		
+//		if(IsTerminated()) return 0;
+		
+		float dt = (float) PIDTimer.get();
+		PIDTimer.reset();
+		integral += err * dt;
+		float der = (err - lastErr) / dt;
+		// Reset the error
+		lastErr = err;
+
+		float output = kp * err + ki * integral + kd * der;
+		if(Math.abs(output) > kOutputCap) {
+			output = output>0 ? kOutputCap : -kOutputCap;
+		}
+
+		
 
 		SmartDashboard.putNumber("PID output", output);
 		return output;
 	}
+	/** Find whether the loop should be stopped
+	 * 
+	 * @return Whether the average of the last 5 values is within the tolerance 
+	 */
 	boolean IsTerminated() {
 		if(historySize < maxHistorySize) {
 			SmartDashboard.putBoolean("is terminated2", false);
@@ -80,7 +109,7 @@ public class PIDLoop {
 			}
 			avg /= historySize;
 
-			if(avg < 20) {
+			if(avg < kTolerance) {
 				SmartDashboard.putBoolean("is terminated2", true);
 				return true;
 			} else {

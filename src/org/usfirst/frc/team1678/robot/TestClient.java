@@ -40,6 +40,7 @@ public class TestClient implements Runnable{
 						;
 					MyClient.close();
 					data=zero;
+					SmartDashboard.putString("apple error","not found");
 					continue;
 				}
 				if (!str.equals("X error:"))
@@ -59,6 +60,7 @@ public class TestClient implements Runnable{
 					;
 				MyClient.close();
 				data=retval;
+				SmartDashboard.putString("apple error","apple found");
 				continue;
 				
 			} catch (IOException e) {

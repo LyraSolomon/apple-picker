@@ -19,15 +19,12 @@ public class Robot extends IterativeRobot {
     
     public void teleopInit() {
     	y.runCalibration();
-    	y.setTargetHeight(1);
+//    	y.setTargetHeight(5);
     }
     public void teleopPeriodic() {
+//    	y.periodic();
     	y.moveToApple(client.data);
-    	
-		if(client.data[2]==0) SmartDashboard.putString("apple status", "No apple in view.");
-		if(client.data[2]==-1) SmartDashboard.putString("apple status", "Error occured.");
-		if(client.data[2]==1) SmartDashboard.putString("apple status",
-				"X: "+client.data[0]+" Y: "+client.data[1]);
+    	SmartDashboard.putNumber("elevator height", y.getHeight());
     }
     
     public void testInit(){}
