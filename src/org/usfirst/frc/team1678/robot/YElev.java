@@ -4,14 +4,10 @@ import edu.wpi.first.wpilibj.*;
 
 public class YElev extends Elevator {
 	VictorSP extraMotor;
-	Encoder extraEncoder;
-	PIDLoop balanceSides=new PIDLoop(-.0012f, -.000046f, -.00002f, 10, .3f);
-	public YElev(DigitalInput hallEffectL, DigitalInput hallEffectR, VictorSP elevMotor1, VictorSP elevMotor2,
-			Encoder elevEncoder1, Encoder elevEncoder2) {
-		super(hallEffectL, elevMotor1, elevEncoder1);
+	public YElev(DigitalInput hallEffect,
+			VictorSP elevMotor1, VictorSP elevMotor2, Encoder elevEncoder) {
+		super(hallEffect, elevMotor1, elevEncoder);
 		extraMotor=elevMotor2;
-		extraEncoder=elevEncoder2;
-		balanceSides.StartLoop();
 		//FIXME get correct values
 		clicksPerFoot=0;
 		safetyLow=0;
@@ -40,19 +36,18 @@ public class YElev extends Elevator {
 	}
 	void runWithSafety(float val)
 	{
-		float calib=balanceSides.CalibrateLoop(extraEncoder.get()-encoder.get());
 		if((motorReverse?-val:val)<0 && 
 				getHeight()*clicksPerFoot>safetyLow*Math.abs(clicksPerFoot) || 
 				(motorReverse?-val:val)>0 && 
 				getHeight()*clicksPerFoot<safetyHigh*Math.abs(clicksPerFoot))
 		{
 			motor.set(0);
-			extraMotor.set(calib);
+			extraMotor.set(0);
 		}
 		else 
 		{
 			motor.set(val);
-			extraMotor.set(val+calib);
+			extraMotor.set(val);
 		}
 	}
 }

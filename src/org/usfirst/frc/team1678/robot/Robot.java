@@ -5,18 +5,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
-	Joystick controller = new Joystick(0);
+	ManualControls controls;
 	Elevator y;
 	Elevator x;
 	Grabber z;
 	TestClient client;
 
 	public void robotInit() {
-		y = new YElev(RobotParts.yHallEffectL, RobotParts.yHallEffectR, RobotParts.yAxisLSC, RobotParts.yAxisRSC,
-				RobotParts.yAxisLEnc, RobotParts.yAxisREnc);
-		x = new XElev(RobotParts.xHallEffect, RobotParts.xAxisSC, RobotParts.xAxisEnc);
-		z = new Grabber(RobotParts.extendSC, RobotParts.grabberSC, RobotParts.grabberProxSensor,
-				RobotParts.extendHallEffect);
+		y = new YElev(RobotParts.yHallEffect, RobotParts.yAxisMotor1, RobotParts.yAxisMotor2,
+				RobotParts.yAxisEnc);
+		x = new XElev(RobotParts.xHallEffect, RobotParts.xAxisMotor, RobotParts.xAxisEnc);
+		z = new Grabber(RobotParts.extendMotor, 
+				RobotParts.grabberMotor1, RobotParts.grabberMotor2, RobotParts.grabberMotor3,
+				RobotParts.grabberProxSensor, RobotParts.extendHallEffect);
 		client = new TestClient();
 	}
 
@@ -26,22 +27,17 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousPeriodic() {
-		// y.moveToApple(client.data[1]);
-		// x.moveToApple(client.data[0]);
-		// z.update();
-		// if(x.ready()&&y.ready()) z.grab();
+		 y.moveToApple(client.data[1]);
+		 x.moveToApple(client.data[0]);
+		 z.update();
+		 if(x.ready()&&y.ready()) z.grab();
 	}
 
 	public void teleopInit() {
 	}
 
 	public void teleopPeriodic() {
-		y.runWithSafety((float) controller.getY());
-		x.runWithSafety((float) controller.getX());
-		if (controller.getRawButton(4))
-			z.setExtender(.3f);
-		if (controller.getRawButton(5))
-			z.setExtender(-.3f);
+		controls.run();
 	}
 
 	public void testInit() {
