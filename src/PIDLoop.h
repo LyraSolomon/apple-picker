@@ -11,7 +11,7 @@
 class PIDLoop {
 
 	const int maxHistorySize = 5;
-	Timer PIDTimer;
+	Timer *PIDTimer;
 	float integral;
 	float lastErr;
 
@@ -21,7 +21,7 @@ class PIDLoop {
 
 	float kOutputCap;
 	float kTolerance;
-	float difference[] = new float[maxHistorySize];
+	float *difference;
 	int historySize;
 
 	/** Create loop with an output cap
@@ -32,15 +32,18 @@ class PIDLoop {
 	 * @param tolerance Allowed error
 	 * @param cap Maximun value
 	 */
-PIDLoop(float p, float i, float d, float tolerance, float cap)
-	{
-		kp=p; ki=i; kd=d;
+public:
+	PIDLoop(float p, float i, float d, float tolerance, float cap) {
+		difference = new float[maxHistorySize];
 		PIDTimer=new Timer();
-		kOutputCap=ABS(cap);
-		kTolerance=tolerance;
-		lastErr=0;
-		historySize=1;
-		integral=0;
+		kp = p;
+		ki = i;
+		kd = d;
+		kOutputCap = ABS(cap);
+		kTolerance = tolerance;
+		lastErr = 0;
+		historySize = 1;
+		integral = 0;
 	}
 	/** Create loop without an output cap
 	 *
@@ -49,20 +52,22 @@ PIDLoop(float p, float i, float d, float tolerance, float cap)
 	 * @param d Derivative coefficient
 	 * @param tolerance Allowed error
 	 */
-PIDLoop(float p, float i, float d, float tolerance)
-	{
-		kp=p; ki=i; kd=d;
+	PIDLoop(float p, float i, float d, float tolerance){
+		difference = new float[maxHistorySize];
 		PIDTimer=new Timer();
-		kOutputCap=100000;
-		kTolerance=tolerance;
-		lastErr=0;
-		historySize=1;
-		integral=0;
+		kp = p;
+		ki = i;
+		kd = d;
+		kOutputCap = 100000;
+		kTolerance = tolerance;
+		lastErr = 0;
+		historySize = 1;
+		integral = 0;
 	}
 	/** Starts/resets PID loop */
-void StartLoop() {
-		PIDTimer.Reset();
-		PIDTimer.Start();
+	void StartLoop() {
+		PIDTimer->Reset();
+		PIDTimer->Start();
 		historySize = 0;
 		integral = 0;
 		lastErr = 0;
@@ -86,8 +91,8 @@ void StartLoop() {
 
 //		if(IsTerminated()) return 0;
 
-		float dt = (float) PIDTimer.Get();
-		PIDTimer.Reset();
+		float dt = (float) PIDTimer->Get();
+		PIDTimer->Reset();
 		integral += err * dt;
 		float der = (err - lastErr) / dt;
 		// Reset the error

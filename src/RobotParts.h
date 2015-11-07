@@ -9,7 +9,8 @@
 #define SRC_ROBOTPARTS_H_
 
 class RobotParts {
-static Encoder* yAxisEnc;
+public:
+	static Encoder* yAxisEnc;
 	static Encoder* xAxisEnc;
 
 	static DigitalInput* xHallEffect;
@@ -24,6 +25,15 @@ static Encoder* yAxisEnc;
 	static VictorSP *extendMotor;
 	static VictorSP *grabberMotor1, *grabberMotor2, *grabberMotor3;
 };
+
+Encoder *RobotParts::yAxisEnc = nullptr;
+Encoder *RobotParts::xAxisEnc = nullptr;
+
+DigitalInput *RobotParts::xHallEffect = nullptr;
+DigitalInput *RobotParts::yHallEffect = nullptr;
+DigitalInput *RobotParts::extendHallEffect = nullptr;
+
+AnalogInput *RobotParts::grabberProxSensor = nullptr;
 
 VictorSP *RobotParts::yAxisMotor1 = new VictorSP(6);
 VictorSP *RobotParts::yAxisMotor2 = new VictorSP(7);

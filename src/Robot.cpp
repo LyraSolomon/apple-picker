@@ -1,5 +1,10 @@
 #include "WPILib.h"
 #include "RobotParts.h"
+#include "Elevator.h"
+#include "XElev.h"
+#include "YElev.h"
+#include "Grabber.h"
+#include "ManualControls.h"
 
 class Robot: public IterativeRobot {
 private:

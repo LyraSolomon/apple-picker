@@ -10,6 +10,7 @@
 
 class ManualControls {
 	Joystick *control;
+public:
 	void run()
 	{
 		RobotParts::yAxisMotor1->Set(control->GetRawAxis('Y'));

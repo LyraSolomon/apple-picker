@@ -12,6 +12,7 @@
 #include "PIDLoop.h"
 
 class Elevator {
+protected:
 	DigitalInput *hallsensor;
 	// PIDLoop up, down;
 	PIDLoop *loop = new PIDLoop(0, 0, 0, 0);
@@ -37,16 +38,16 @@ public:
 		encoder = elevEncoder;
 		loop->StartLoop();
 	}
-
+	virtual ~Elevator(){}
 	/**
 	 * Calibrate encoder based on hall effect sensor. Elevator should start in
 	 * the positive direction from the hall sensor. TODO Should this function be
 	 * made non - blocking?
 	 */
-	void runCalibration() {
+	virtual void runCalibration() {
 		// Move the elevator into sensor range and capture the position of the
 		// edge
-		while (hallsensor->Get()())
+		while (hallsensor->Get())
 			motor->Set(motorReverse ? .3 : -.3);
 		encoderPosDown = encoder->Get();
 
@@ -119,7 +120,7 @@ public:
 	 * Do not run the motor farther if it is already past a cutoff point
 	 * @param val the motor value to send to the motor
 	 */
-	void runWithSafety(float val) {
+	virtual void runWithSafety(float val) {
 		if (((motorReverse ? -val : val) < 0 && getHeight() * clicksPerFoot > safetyLow * ABS(clicksPerFoot))
 				|| ((motorReverse ? -val : val) > 0
 				&& getHeight() * clicksPerFoot < safetyHigh * ABS(clicksPerFoot)))

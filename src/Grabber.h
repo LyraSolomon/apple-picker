@@ -10,8 +10,8 @@
 
 class Grabber {
 	VictorSP *extender, *wheel1, *wheel2, *wheel3;
-	AnalogInput proxySensor;
-	DigitalInput hallSensor;
+	AnalogInput *proxySensor;
+	DigitalInput *hallSensor;
 	bool extending=false;
 	bool done=true;
 	int cutoff;
@@ -42,13 +42,13 @@ public:
 		{
 			extender->Set(.3);
 			runIntake(.5);
-			if(proxySensor.GetValue()>cutoff) extending=false;
+			if(proxySensor->GetValue()>cutoff) extending=false;
 		}
 		else
 		{
 			extender->Set(-.3);
 			runIntake(0);
-			if(hallSensor.Get()) done=true;
+			if(hallSensor->Get()) done=true;
 		}
 	}
 };

@@ -17,6 +17,14 @@
 #include <netdb.h>
 #include <thread>
 
+class TestClient{
+public:
+	double data[3];
 
+	void operator()()
+	{
+
+	}
+};
 
 #endif /* SRC_TESTCLIENT_H_ */
