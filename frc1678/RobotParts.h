@@ -26,21 +26,39 @@ public:
 	static VictorSP *grabberMotor1, *grabberMotor2, *grabberMotor3;
 };
 
-Encoder *RobotParts::yAxisEnc = nullptr;
-Encoder *RobotParts::xAxisEnc = nullptr;
+Encoder *RobotParts::yAxisEnc;
+Encoder *RobotParts::xAxisEnc;
 
-DigitalInput *RobotParts::xHallEffect = nullptr;
-DigitalInput *RobotParts::yHallEffect = nullptr;
-DigitalInput *RobotParts::extendHallEffect = nullptr;
+DigitalInput *RobotParts::xHallEffect;
+DigitalInput *RobotParts::yHallEffect;
+DigitalInput *RobotParts::extendHallEffect;
 
-AnalogInput *RobotParts::grabberProxSensor = nullptr;
+AnalogInput *RobotParts::grabberProxSensor;
 
-VictorSP *RobotParts::yAxisMotor1 = new VictorSP(6);
-VictorSP *RobotParts::yAxisMotor2 = new VictorSP(7);
-VictorSP *RobotParts::xAxisMotor = new VictorSP(1);
-VictorSP *RobotParts::extendMotor = new VictorSP(0);
-VictorSP *RobotParts::grabberMotor1 = new VictorSP(3);
-VictorSP *RobotParts::grabberMotor2 = new VictorSP(5);
-VictorSP *RobotParts::grabberMotor3 = new VictorSP(8);
+VictorSP *RobotParts::yAxisMotor1;
+VictorSP *RobotParts::yAxisMotor2;
+VictorSP *RobotParts::xAxisMotor;
+VictorSP *RobotParts::extendMotor;
+VictorSP *RobotParts::grabberMotor1;
+VictorSP *RobotParts::grabberMotor2;
+VictorSP *RobotParts::grabberMotor3;
 
+void initialize() {
+	RobotParts::yAxisEnc = nullptr;
+	RobotParts::xAxisEnc = nullptr;
+
+	RobotParts::xHallEffect = nullptr;
+	RobotParts::yHallEffect = nullptr;
+	RobotParts::extendHallEffect = nullptr;
+
+	RobotParts::grabberProxSensor = nullptr;
+
+	RobotParts::yAxisMotor1 = new VictorSP(6);
+	RobotParts::yAxisMotor2 = new VictorSP(7);
+	RobotParts::xAxisMotor = new VictorSP(1);
+	RobotParts::extendMotor = new VictorSP(0);
+	RobotParts::grabberMotor1 = new VictorSP(3);
+	RobotParts::grabberMotor2 = new VictorSP(5);
+	RobotParts::grabberMotor3 = new VictorSP(8);
+}
 #endif /* SRC_ROBOTPARTS_H_ */
