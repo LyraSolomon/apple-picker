@@ -51,6 +51,8 @@ private:
 	}
 
 	void TeleopPeriodic() {
+		//yHallEffect..
+		std::cout<<RobotParts::yAxisEnc->Get()<<std::endl;
 		controls.run();
 	}
 

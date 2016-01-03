@@ -21,24 +21,24 @@ public:
 
 		if(control->GetRawButton(1))
 		{
-			//RobotParts::grabberMotor1->Set(.3);
-			//RobotParts::grabberMotor2->Set(.3);
-			//RobotParts::grabberMotor3->Set(.3);
+			RobotParts::grabberMotor1->Set(1);
+			RobotParts::grabberMotor2->Set(1);
+			RobotParts::grabberMotor3->Set(1);
 		}
 		else
 		{
-			//RobotParts::grabberMotor1->Set(0);
-			//RobotParts::grabberMotor2->Set(0);
-			//RobotParts::grabberMotor3->Set(0);
+			RobotParts::grabberMotor1->Set(0);
+			RobotParts::grabberMotor2->Set(0);
+			RobotParts::grabberMotor3->Set(0);
 		}
 
 		if(control->GetRawButton(3))
 		{
-			RobotParts::extendMotor->Set(.6);
+			RobotParts::extendMotor->Set(1);
 		}
 		else if(control->GetRawButton(2))
 		{
-			RobotParts::extendMotor->Set(-.6);
+			RobotParts::extendMotor->Set(-1);
 		}
 		else
 		{

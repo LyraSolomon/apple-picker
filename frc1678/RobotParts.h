@@ -44,14 +44,14 @@ VictorSP *RobotParts::grabberMotor2;
 VictorSP *RobotParts::grabberMotor3;
 
 void initialize() {
-	RobotParts::yAxisEnc = nullptr;
-	RobotParts::xAxisEnc = nullptr;
+	RobotParts::yAxisEnc = new Encoder(1, 2);
+	RobotParts::xAxisEnc = new Encoder(8, 9);
 
-	RobotParts::xHallEffect = nullptr;
-	RobotParts::yHallEffect = nullptr;
+	RobotParts::xHallEffect = new DigitalInput(6);
+	RobotParts::yHallEffect = new DigitalInput(7);
 	RobotParts::extendHallEffect = nullptr;
 
-	RobotParts::grabberProxSensor = nullptr;
+	RobotParts::grabberProxSensor = new AnalogInput(0);
 
 	RobotParts::yAxisMotor1 = new VictorSP(6);
 	RobotParts::yAxisMotor2 = new VictorSP(7);
