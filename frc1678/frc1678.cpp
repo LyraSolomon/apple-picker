@@ -6,7 +6,7 @@
 //#include "Grabber.h"
 #include "ManualControls.h"
 #include <iostream>
- 
+
 class Robot: public IterativeRobot {
 private:
 	LiveWindow *lw;

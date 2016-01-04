@@ -22,7 +22,7 @@ public:
 		if(control->GetRawButton(1))
 		{
 			RobotParts::grabberMotor1->Set(1);
-			RobotParts::grabberMotor2->Set(1);
+			RobotParts::grabberMotor2->Set(-1);
 			RobotParts::grabberMotor3->Set(1);
 		}
 		else
