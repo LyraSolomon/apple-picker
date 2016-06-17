@@ -33,4 +33,4 @@ before_install:
   - ./bazel-0.2.1-installer-linux-x86_64.sh --user
 
 script:
-  - bazel build //frc1678:frc1678 --cpu=roborio
+  - bazel build //frc1678:frc1678 --cpu=roborio --verbose_failures
