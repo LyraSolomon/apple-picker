@@ -1,64 +1,28 @@
-/*
- * RobotParts.h
- *
- *  Created on: Nov 7, 2015
- *      Author: Citrus CAD
- */
+#ifndef _ROBOT_PARTS_H_
+#define _ROBOT_PARTS_H_
 
-#ifndef SRC_ROBOTPARTS_H_
-#define SRC_ROBOTPARTS_H_
+#include "WPILib.h"
 
 class RobotParts {
 public:
-	static Encoder* yAxisEnc;
-	static Encoder* xAxisEnc;
+  // Sensors
+  static Encoder* YAxisEnc_;
+  static Encoder* XAxisEnc_;
 
-	static DigitalInput* xHallEffect;
-	static DigitalInput* yHallEffect;
-	static DigitalInput* extendHallEffect;
+  static DigitalInput* XHallEffect_;
+  static DigitalInput* YHallEffect_;
+  static DigitalInput* ExtendHallEffect_;
 
-	static AnalogInput* grabberProxSensor;
+  static AnalogInput* GrabberProxSensor_;
 
-	// Acutators
-	static VictorSP *yAxisMotor1, *yAxisMotor2;
-	static VictorSP *xAxisMotor;
-	static VictorSP *extendMotor;
-	static VictorSP *grabberMotor1, *grabberMotor2, *grabberMotor3;
+  // Acutators
+  static VictorSP *YAxisMotor1_, *YAxisMotor2_;
+  static VictorSP *XAxisMotor_;
+  static VictorSP *ExtendMotor_;
+  static VictorSP *GrabberMotor1_, *GrabberMotor2_, *GrabberMotor3_;
+	
+  static void Initialize();
 };
 
-Encoder *RobotParts::yAxisEnc;
-Encoder *RobotParts::xAxisEnc;
 
-DigitalInput *RobotParts::xHallEffect;
-DigitalInput *RobotParts::yHallEffect;
-DigitalInput *RobotParts::extendHallEffect;
-
-AnalogInput *RobotParts::grabberProxSensor;
-
-VictorSP *RobotParts::yAxisMotor1;
-VictorSP *RobotParts::yAxisMotor2;
-VictorSP *RobotParts::xAxisMotor;
-VictorSP *RobotParts::extendMotor;
-VictorSP *RobotParts::grabberMotor1;
-VictorSP *RobotParts::grabberMotor2;
-VictorSP *RobotParts::grabberMotor3;
-
-void initialize() {
-	RobotParts::yAxisEnc = new Encoder(1, 2);
-	RobotParts::xAxisEnc = new Encoder(8, 9);
-
-	RobotParts::xHallEffect = new DigitalInput(6);
-	RobotParts::yHallEffect = new DigitalInput(7);
-	RobotParts::extendHallEffect = nullptr;
-
-	RobotParts::grabberProxSensor = new AnalogInput(0);
-
-	RobotParts::yAxisMotor1 = new VictorSP(6);
-	RobotParts::yAxisMotor2 = new VictorSP(7);
-	RobotParts::xAxisMotor = new VictorSP(1);
-	RobotParts::extendMotor = new VictorSP(0);
-	RobotParts::grabberMotor1 = new VictorSP(3);
-	RobotParts::grabberMotor2 = new VictorSP(5);
-	RobotParts::grabberMotor3 = new VictorSP(8);
-}
-#endif /* SRC_ROBOTPARTS_H_ */
+#endif
