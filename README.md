@@ -1,4 +1,5 @@
-**Simple code for apple-harvesting robot**
+**Simple code for apple-harvesting robot** 
+[![Build Status](https://travis-ci.org/amannababanana/apple-picker.svg?branch=cpp)](https://travis-ci.org/amannababanana/apple-picker)
 
 
 
