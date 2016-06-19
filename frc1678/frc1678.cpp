@@ -37,4 +37,5 @@ private:
   }
 };
 
+// This macro, defined in WPILib.h, creates the main function
 START_ROBOT_CLASS(Robot);

@@ -4,6 +4,7 @@
 #include "RobotParts.h"
 #include "WPILib.h"
 
+// Class to control the robot using a joystick for testing
 class ManualControls {
 private:
   Joystick *control_;

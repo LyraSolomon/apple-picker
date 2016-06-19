@@ -1,0 +1,1 @@
+This directory contains the files necessary for Bazel to cross compile for the Roborio. The FRC toolchain for Linux must be installed for the code to compile.

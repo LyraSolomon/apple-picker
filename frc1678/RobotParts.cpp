@@ -24,6 +24,7 @@ void RobotParts::Initialize() {
 
   RobotParts::XHallEffect_ = new DigitalInput(6);
   RobotParts::YHallEffect_ = new DigitalInput(7);
+  // This sensor is not yet on the robot
   RobotParts::ExtendHallEffect_ = nullptr;
 
   RobotParts::GrabberProxSensor_ = new AnalogInput(0);

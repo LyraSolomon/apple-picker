@@ -3,6 +3,9 @@
 
 #include "WPILib.h"
 
+// RobotParts is a class that contains a list of all
+// components on the robot, so functions do not need
+// to be passed all components that they use.
 class RobotParts {
 public:
   // Sensors
@@ -20,7 +23,7 @@ public:
   static VictorSP *XAxisMotor_;
   static VictorSP *ExtendMotor_;
   static VictorSP *GrabberMotor1_, *GrabberMotor2_, *GrabberMotor3_;
-	
+
   static void Initialize();
 };
 
